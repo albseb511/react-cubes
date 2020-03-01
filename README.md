@@ -1,5 +1,12 @@
 ### RANDOM COLOR CUBE GENERATOR
 
+#### Features
+
+- Define size of a cube
+- Define no of cubes in x, y, z directions
+- Zoom in and out
+- Offset cube
+
 #### Instructions on cloning:
 
 ```
