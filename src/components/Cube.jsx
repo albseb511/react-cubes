@@ -31,7 +31,7 @@ class Cube extends Component {
         },this.render3D)
     }
     render3D = async()=>{
-        let { cubeDimension:dim, cubeSpacing:gap, zoom } = this.props
+        let { cubeDimension:dim, offset, zoom } = this.props
         let {positions} = this.state
         this.scene = new Three.Scene()
         this.camera = new Three.PerspectiveCamera( 90, (window.innerWidth/2)/window.innerHeight, 0.1, 1000)
@@ -42,7 +42,7 @@ class Cube extends Component {
         this.elem.appendChild(this.renderer.domElement)
         this.cubes = new Three.Group()
         for(let i=0; i<positions.length; i++){
-            let geometry = new Three.BoxGeometry(dim,dim,dim)
+            let geometry = new Three.BoxGeometry(dim-offset,dim-offset,dim-offset)
             let material = new Three.MeshBasicMaterial( {color: Number(new RandExp(/^0x[0-8a-f]{6}$/).gen())})
             let cube = new Three.Mesh(geometry,material)
             cube.position.set( ...this.state.positions[i].map(a=>(a*dim)) );
@@ -65,7 +65,8 @@ class Cube extends Component {
         let hasYChanged = prevProps.cubeConfig.y !== this.props.cubeConfig.y
         let hasZChanged = prevProps.cubeConfig.z !== this.props.cubeConfig.z
         let hasZoomChanged = prevProps.zoom !== this.props.zoom
-        if(hasDimensionChanged || hasXChanged || hasYChanged || hasZChanged || hasZoomChanged)
+        let hasOffsetChanged = prevProps.offset !== this.props.offset
+        if(hasDimensionChanged || hasXChanged || hasYChanged || hasZChanged || hasZoomChanged || hasOffsetChanged)
             this.initialise()
     }
     render() {
@@ -79,14 +80,14 @@ class Cube extends Component {
 Cube.propTypes = {
     cubeConfig: PropTypes.object,
     cubeDimension: PropTypes.number,
-    cubeSpacing: PropTypes.number,
+    offset: PropTypes.number,
     zoom: PropTypes.number
 }
 
 Cube.defaultProps = {
     cubeConfig: {x:3, y:3, z:3},
     cubeDimension: 1,
-    cubeGap: 0,
+    offset: 0,
     zoom: 10
 }
 
