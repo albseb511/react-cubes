@@ -1,5 +1,9 @@
 ### RANDOM COLOR CUBE GENERATOR
 
+#### Netlify link
+
+`https://react-cubes.netlify.com/`
+
 #### Features
 
 - Define size of a cube
